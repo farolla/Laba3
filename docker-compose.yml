@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./MyApi
+      dockerfile: Dockerfile
+    ports:
+      - "5017:80"
+    environment:
+      - ConnectionStrings__DefaultConnection=${DATABASE_URL}
+
+  client:
+    build:
+      context: ./my-client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
